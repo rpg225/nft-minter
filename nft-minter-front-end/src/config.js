@@ -1,0 +1,1 @@
+export const MYNFT_CONTRACT_ADDRESS = "0x0319f040DAb6b76Fab9bAFc8a50dbd5fac8fa6A5";
