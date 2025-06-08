@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 
-function WalletConnect() {
-    const [ currentAccount, setCurrentAccount ] = useState(null);
+function WalletConnect({ currentAccount, setCurrentAccount}) {
+    // const [ currentAccount, setCurrentAccount ] = useState(null); we are using props
     const [errorMessage, setErrorMessage ] = useState(null);
 
     // Function to connect wallet
