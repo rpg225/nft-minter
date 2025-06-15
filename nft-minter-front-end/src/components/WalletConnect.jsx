@@ -67,15 +67,15 @@ function WalletConnect({ currentAccount, setCurrentAccount}) {
       }, []);
 
       return (
-    <div>
+    <div className = "wallet-connect-container">
       {currentAccount ? (
-        <div>
+        <div className="account-info">
           <p>Connected Account: {currentAccount.substring(0, 6)}...{currentAccount.substring(currentAccount.length - 4)}</p>
         </div>
       ) : (
-        <button onClick={connectWalletHandler}>Connect Wallet</button>
+        <button onClick={connectWalletHandler} className="connect-wallet-button">Connect Wallet</button>
       )}
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p className="error-message" style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 }

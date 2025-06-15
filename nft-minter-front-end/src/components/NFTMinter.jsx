@@ -66,10 +66,10 @@ function NFTMinter({ currentAccount }) {
     };
   
 return (
-    <div>
+    <div className="nft-minter-container">
         <h2>Mint Your NFT</h2>
-        {!currentAccount && <p style={{color : 'orange'}}>Please connect your wallet to mint.</p>}
-        <div>
+        {!currentAccount && <p className="warning-message" style={{color : 'orange'}}>Please connect your wallet to mint.</p>}
+        <div className="form-group">
             <label htmlFor="nftName"> Name:</label>
             <input type="text"
                     id = "nftName"
@@ -81,7 +81,7 @@ return (
                     }
             />
         </div>
-        <div>
+        <div className="form-group">
             <label htmlFor="nftDescription"> Description:</label>
             <textarea type="text"
                     id = "nftDescription"
@@ -93,7 +93,7 @@ return (
                     }
             />
         </div>
-        <div>
+        <div className="form-group">
             <label htmlFor="nftImageURI">Metadata URI: </label> 
             <input 
             type="text"
@@ -105,6 +105,7 @@ return (
             />
         </div>
         <button
+            className="mint-button"
             onClick={handleMintNFT}
             disabled={!currentAccount || 
                 mintingStatus.includes('Minting...') || mintingStatus.startsWith('NFT Minted succesfully')
@@ -113,7 +114,7 @@ return (
             {mintingStatus.includes('Minting...') ? 'minting...' : 'Mint NFT'}
         </button>
             {mintingStatus && ! mintingStatus.includes('NFT Minted successfully!') && <p>{mintingStatus}</p>}
-            {mintingStatus.startsWith('NFT Minted successfully!') && <p style={{color: 'green'}}>{mintingStatus}</p>}
+            {mintingStatus.startsWith('NFT Minted successfully!') && <p  className="success-message" style={{color: 'green'}}>{mintingStatus}</p>}
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
 

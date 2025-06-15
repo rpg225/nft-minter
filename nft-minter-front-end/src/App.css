@@ -1,0 +1,200 @@
+/* WalletConnect Styles */
+
+.wallet-connect-container {
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.account-info p {
+    margin: 0;
+    font-size: 0.9em;
+    color: #2c3e50;
+}
+
+.account-info strong {
+    font-weight: 600;
+    word-break: break-all;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.status-message {
+    color: #3498db;
+    font-size: 0.9em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.success-message {
+    color: #2ecc71;
+    font-size: 0.9em;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* NFTMinter Styles*/
+
+.nft-minter-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.nft-minter-container h2 {
+    margin-top: 0;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.warning-message {
+    color: #f39c12;
+    font-size: 0.9em;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.status-message.emphasis {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.mint-button {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* NFTGallery Styles*/
+
+.nft-gallery-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.nft-gallery-container h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.nfts-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.nft-card {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    width: 220px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out;
+}
+
+.nft-card:hover {
+    transform: translate(-5px);
+}
+
+.nft-card h4{
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.nft-card p.nft-uri {
+    font-size: 0.85em;
+    word-break: break-all;
+    margin-bottom: 0;
+}
+
+.nft-card a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.nft-card a:hover {
+    text-decoration: underline;
+}
+
+/* responsiveness */
+
+@media (max-width: 768px) {
+    .App {
+        margin: 20px 10px;
+        padding: 15px;
+    }
+
+    .nfts-grid {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    .App {
+        margin: 10px 5px;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    button,
+    input[type="text"],
+    textarea {
+        font-size: 0.95em;
+        padding: 8px 12px;
+    }
+
+    .wallet-connect-container,
+    .nft-minter-container, 
+    .nft-gallery-container {
+        padding: 15px;
+    }
+
+    .nfts-grid {
+        justify-content: space-around;
+    }
+
+    .nft-card {
+        width: calc(100% -30px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 1.6em;
+        }
+        h2 {
+            font-size: 1.3em;
+        }
+        .nft-card {
+            padding: 10px;
+        }
+    }
+
+
+}

@@ -1,8 +1,9 @@
-
+import { useState } from 'react'
 import './App.css'
 import WalletConnect from './components/WalletConnect'
 import NFTMinter from './components/NFTMinter'
-import { useState } from 'react'
+import NFTGallery  from './components/NFTGallery'
+
 
 function App() {
   const [currentAccount, setCurrentAccount] = useState(null);
@@ -16,7 +17,10 @@ function App() {
            />
            <hr />
       {currentAccount ? (
+        <>
         <NFTMinter currentAccount={currentAccount} />
+        <NFTGallery currentAccount={currentAccount} />
+        </>
       ) : ( 
         <p>please connect your wallet to use the minter</p>
       )}

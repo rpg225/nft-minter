@@ -3,20 +3,18 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol"; // ADDED
+
 import "@openzeppelin/contracts/access/Ownable.sol"; // For OpenZeppelin v4.x
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract MyNFT is ERC721, ERC721URIStorage, Ownable { // Ownable from v4.x
+contract MyNFT is ERC721, ERC721URIStorage, ERC721Enumerable, Ownable { // ADDED ERC721Enumerable
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
-    // Constructor for OpenZeppelin v4.x Ownable
-    // It takes NO arguments. msg.sender (the deployer) automatically becomes the owner.
     constructor()
         ERC721("MyNFTCollection", "MNC") 
     {}
-
-    // ... rest of your contract ...
 
     function safeMint(address to, string memory uri) public onlyOwner {
         _tokenIdCounter.increment();
@@ -25,16 +23,25 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable { // Ownable from v4.x
         _setTokenURI(newItemId, uri);
     }
 
-    // ... _burn, tokenURI, supportsInterface should be fine from your previous paste ...
-    // Ensure they are:
-    function _burn(uint256 tokenId) internal override(ERC721, ERC721URIStorage) {
+    // --- OVERRIDES ---
+    function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize)
+        internal
+        override(ERC721, ERC721Enumerable)
+    {
+        super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
+    }
+
+    function _burn(uint256 tokenId) 
+        internal 
+        override(ERC721, ERC721URIStorage) 
+    {
         super._burn(tokenId);
     }
 
     function tokenURI(uint256 tokenId)
         public
         view
-        override(ERC721, ERC721URIStorage)
+        override(ERC721, ERC721URIStorage) // Adjusted override list
         returns (string memory)
     {
         return super.tokenURI(tokenId);
@@ -43,7 +50,7 @@ contract MyNFT is ERC721, ERC721URIStorage, Ownable { // Ownable from v4.x
     function supportsInterface(bytes4 interfaceId)
         public
         view
-        override(ERC721, ERC721URIStorage)
+        override(ERC721, ERC721Enumerable, ERC721URIStorage)
         returns (bool)
     {
         return super.supportsInterface(interfaceId);
