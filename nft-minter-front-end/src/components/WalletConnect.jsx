@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
+// import { ethers } from 'ethers'
 
 function WalletConnect({ currentAccount, setCurrentAccount}) {
     // const [ currentAccount, setCurrentAccount ] = useState(null); we are using props
