@@ -64,7 +64,7 @@ function WalletConnect({ currentAccount, setCurrentAccount}) {
                 });
             }
 
-      }, []);
+      }, [setCurrentAccount, setErrorMessage]);
 
       return (
     <div className = "wallet-connect-container">

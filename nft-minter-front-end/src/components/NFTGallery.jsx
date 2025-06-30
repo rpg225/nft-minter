@@ -1,7 +1,7 @@
 // frontend/src/components/NFTGallery.jsx
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import MyNFTContractABI from '../MyNFTABI.json'; // Your ABI file
+import MyNFTContractABI from '../MyNFTABI.json'; 
 import { MYNFT_CONTRACT_ADDRESS } from '../config';
 
 // Helper function to convert IPFS URI to an HTTP Gateway URL
@@ -9,8 +9,8 @@ const formatIpfsUrl = (ipfsUri) => {
     if (!ipfsUri || !ipfsUri.startsWith('ipfs://')) {
         return ipfsUri;
     }
-    const cid = ipfsUri.substring(7); // Remove "ipfs://"
-    return `https://gateway.pinata.cloud/ipfs/${cid}`; // Or your preferred gateway
+    const cid = ipfsUri.substring(7); 
+    return `https://gateway.pinata.cloud/ipfs/${cid}`; 
 };
 
 function NFTGallery({ currentAccount }) {
@@ -85,8 +85,6 @@ function NFTGallery({ currentAccount }) {
                         }
                     } catch (loopError) {
                         console.error(`Error processing NFT at index ${i} (Token ID: unknown at this point if tokenId failed):`, loopError);
-                        // You might want to add a placeholder to nftsData here as well if an error occurs in the loop
-                        // so the UI doesn't get stuck or miss an item count.
                     }
                 }
                 setUserNFTs(nftsData);
@@ -124,47 +122,52 @@ function NFTGallery({ currentAccount }) {
     }
 
     // Main JSX for displaying NFTs
-    return (
-        <div className="nft-gallery-container">
-            <h2>Your Minted NFTs</h2>
-            {userNFTs.length === 0 ? (
-                <p>You haven't minted any NFTs from this collection yet.</p> // Simpler message
-            ) : (
-                <div className="nfts-grid">
-                    {userNFTs.map((nft) => (
-                        <div key={nft.id} className="nft-card">
-                            {nft.image ? (
-                                <img 
-                                    src={nft.image} 
-                                    alt={nft.name || `NFT ${nft.id}`} 
-                                    style={{ width: '100%', height: '180px', objectFit: 'cover', borderRadius: '4px 4px 0 0' }} 
-                                    onError={(e) => { 
-                                        console.error(`Error loading image: ${nft.image}`, e);
-                                        e.target.style.display = 'none'; // Hide broken image
-                                        // Optionally, you can set a placeholder image here or change the parent div
-                                    }}
-                                />
-                            ) : (
-                                <div style={{ width: '100%', height: '180px', background: '#eee', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '4px 4px 0 0', textAlign: 'center' }}>
-                                    <p style={{margin:0, color: '#777'}}>No Image Provided in Metadata</p>
-                                </div>
-                            )}
-                            <div style={{ padding: '10px' }}>
-                                <h4>{nft.name || `Token ID: ${nft.id}`}</h4>
-                                <p style={{ fontSize: '0.8em', color: '#555', height: '40px', overflow: 'hidden', textOverflow: 'ellipsis' }}>{nft.description}</p>
-                                <p style={{ fontSize: '0.75em', color: '#777', marginTop: '5px' }}>Token ID: {nft.id}</p>
-                                <p className="nft-uri" style={{marginTop: '5px'}}>
-                                    <a href={formatIpfsUrl(nft.uri)} target="_blank" rel="noopener noreferrer">
-                                        View Raw Metadata
-                                    </a>
-                                </p>
+  return (
+    <div className="nft-gallery-container">
+        <h2>Your Minted NFTs</h2>
+        {/* ... (loading, error, no account, no nfts messages) ... */}
+        {currentAccount && !isLoading && !errorMessage && userNFTs.length > 0 && (
+            <div className="nfts-grid">
+                {userNFTs.map((nft) => (
+                    <div key={nft.id} className="nft-card">
+                        {nft.image ? (
+                            <img 
+                                src={nft.image} 
+                                alt={nft.name || `NFT ${nft.id}`} 
+                                // Removed inline styles for img, will be handled by .nft-card img in CSS
+                                onError={(e) => { 
+                                    console.error(`Error loading image: ${nft.image}`, e);
+                                    // Replace with placeholder div on error
+                                    const parent = e.target.parentNode;
+                                    const placeholder = document.createElement('div');
+                                    placeholder.className = 'no-image-placeholder';
+                                    placeholder.innerHTML = '<p>Image Load Error</p>';
+                                    if (parent && e.target.nextSibling !== placeholder) { // Avoid multiple placeholders
+                                        parent.insertBefore(placeholder, e.target);
+                                    }
+                                    e.target.style.display = 'none';
+                                }}
+                            />
+                        ) : (
+                            <div className="no-image-placeholder"> {/* Added class */}
+                                <p>No Image Provided</p>
                             </div>
+                        )}
+                        <div className="card-content"> {/* Wrapper for text content */}
+                            <h4>{nft.name || `Token ID: ${nft.id}`}</h4>
+                            <p className="description">{nft.description}</p> {/* Class for description */}
+                            <p className="token-id-display">Token ID: {nft.id}</p> {/* Class for token ID */}
+                            <p className="nft-uri" style={{marginTop: '5px'}}>
+                                <a href={formatIpfsUrl(nft.uri)} target="_blank" rel="noopener noreferrer" className="metadata-link"> {/* Class for link */}
+                                    View Raw Metadata
+                                </a>
+                            </p>
                         </div>
-                    ))}
-                </div>
-            )}
-        </div>
-    );
+                    </div>
+                ))}
+            </div>
+        )}
+    </div>
+);
 }
-
 export default NFTGallery;
