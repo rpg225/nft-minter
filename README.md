@@ -8,8 +8,8 @@ This DApp was built as a learning project to understand and implement core Web3 
 
 
 ## Live Demo
-
-Coming Soon
+ 
+ https://rpg225.github.io/nft-minter/
 
 ---
 
